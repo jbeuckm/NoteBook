@@ -2,8 +2,16 @@
 #include "catch.hpp"
 #include "notebook.hpp"
 
-NoteBook nb;
-
 TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
+	NoteBook nb;
 	REQUIRE( nb.mode == velocity );
+
+	NoteBook nbH(highest);
+	REQUIRE( nbH.mode == highest );
+
+	Note *n = nbH.noteOn(100, 100);
+	REQUIRE( n != 0 );
+	REQUIRE( n->pitch == 100 );
+	Note *n2 = nbH.noteOff(100);
+	REQUIRE( n2 == 0 );
 }
