@@ -85,9 +85,12 @@ Note *NoteBook::noteOff(char _pitch) {
 		previous = current;
 		current = current->next;
 	} while ((current != 0) && (current->pitch != _pitch));
+	if (current == 0) {
+		return head;
+	}
 	if (current->pitch == _pitch) {
 		previous->next = current->next;
 		delete current;
+		return head;
 	}
-	return head;
 }
