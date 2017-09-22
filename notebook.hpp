@@ -1,8 +1,8 @@
-enum nbMode { highest, lowest, velocity };
+enum NB_Mode { highest, lowest, velocity };
 
 class Note {
 	public:
-		Note(char _pitch, char _velocity);
+		Note(char pitch, char velocity);
 		char pitch;
 		char velocity;
 };
@@ -12,12 +12,13 @@ Note::Note(char note, char velocity) {
 
 class NoteBook {
 	public:
-		NoteBook();
-		void noteOn(char _pitch, char _velocity);
-		nbMode mode;
-		
+		NoteBook(NB_Mode mode = velocity);
+		void noteOn(char pitch, char velocity);
+		NB_Mode mode;
+	private:
+		Note *head;
 };
 
-NoteBook::NoteBook() {
-	this->mode = velocity;
+NoteBook::NoteBook(NB_Mode mode) {
+	this->mode = mode;
 }

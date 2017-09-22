@@ -5,5 +5,5 @@
 NoteBook nb;
 
 TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
-	REQUIRE( nb.mode == highest );
+	REQUIRE( nb.mode == velocity );
 }
