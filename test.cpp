@@ -3,11 +3,8 @@
 #include "notebook.hpp"
 
 TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
-	NoteBook nb;
-	REQUIRE( nb.mode == velocity );
 
 	NoteBook nbH(highest);
-	REQUIRE( nbH.mode == highest );
 
 	Note *n = nbH.noteOn(100, 100);
 	REQUIRE( n != 0 );
