@@ -7,10 +7,12 @@ TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
 	Note *n;
 
 	NoteBook nbV;
-	n = nbV.noteOn(100, 100);
+	n = nbV.noteOn(1, 100);
 	REQUIRE( n->velocity == 100 );
-	n = nbV.noteOn(100, 101);
+	n = nbV.noteOn(2, 101);
 	REQUIRE( n->velocity == 101 );
+	n = nbV.noteOff(2);
+	REQUIRE( n->velocity == 100 );
 
 	NoteBook nbH(highest);
 
