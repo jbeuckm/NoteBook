@@ -8,6 +8,7 @@ TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
 	NoteBook nb;
 
 	SECTION( "velocity priority" ) {
+		nb.setMode(velocity);
 		n = nb.noteOn(1, 100);
 		REQUIRE( n->velocity == 100 );
 		n = nb.noteOn(2, 101);
@@ -22,12 +23,6 @@ TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
 		REQUIRE( n == 0 );
 	}
 
-	SECTION( "can set mode" ) {
-		nb.setMode(velocity);
-		nb.setMode(lowest);
-		nb.setMode(highest);
-	}
-
 	SECTION( "highest note priority" ) {
 		nb.setMode(highest);
 		n = nb.noteOn(5, 1);
@@ -37,6 +32,24 @@ TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
 		REQUIRE( n->pitch == 6 );
 		n = nb.noteOff(6);
 		REQUIRE( n->pitch == 5 );
+		n = nb.noteOn(7, 1);
+		REQUIRE( n->pitch == 7 );
+		n = nb.noteOff(6);
+		REQUIRE( n->pitch == 7 );
+	}
+
+	SECTION( "lowest note priority" ) {
+		nb.setMode(lowest);
+		n = nb.noteOn(100, 1);
+		n = nb.noteOn(99, 1);
+		REQUIRE( n->pitch == 99 );
+		n = nb.noteOn(101, 1);
+		REQUIRE( n->pitch == 99 );
+		n = nb.noteOff(100);
+		n = nb.noteOff(101);
+		REQUIRE( n->pitch == 99 );
+		n = nb.noteOff(99);
+		REQUIRE( n == 0 );
 	}
 	
 }
