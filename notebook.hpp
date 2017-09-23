@@ -74,24 +74,23 @@ Note *NoteBook::noteOff(char _pitch) {
 	if (head == 0) {
 		return head;
 	}
-	Note *current = head;
-	if (head->pitch == _pitch) {
+	Note *current, *previous;
+	while ((head != 0) && (head->pitch == _pitch)) {
+		current = head;
 		head = head->next;
 		delete current;
-		return head;
 	}
-	Note *previous;
-	do {
-		previous = current;
-		current = current->next;
-	} while ((current != 0) && (current->pitch != _pitch));
-	if (current == 0) {
-		return head;
+	current = head;
+	while (current != 0) {
+
+                previous = current;
+                current = current->next;
+
+	        if ((current != 0) && (current->pitch == _pitch)) {
+                	previous->next = current->next;
+        	        delete current;
+			current = previous->next;
+	        }
 	}
-	if (current->pitch == _pitch) {
-		previous->next = current->next;
-		delete current;
-		return head;
-	}
-	return 0;
+	return head;
 }
