@@ -30,6 +30,7 @@ class NoteBook {
 		Note *noteOn(char _pitch, char _velocity);
 		Note *noteOff(char _pitch);
 		void setMode(NB_Mode mode);
+		int allNotesOff();
 	private:
 		Note *head;
 		bool (*comesBefore)(Note *a, Note *b);
@@ -93,4 +94,16 @@ Note *NoteBook::noteOff(char _pitch) {
 	        }
 	}
 	return head;
+}
+
+int NoteBook::allNotesOff() {
+	Note *current = head, *previous;
+	int count = 0;
+	while (current != 0) {
+		previous = current;
+		current = current->next;
+		delete previous;
+		count++;
+	}
+	return count;
 }

@@ -51,5 +51,20 @@ TEST_CASE( "NoteBook keeps track of notes", "[NoteBook]" ) {
 		n = nb.noteOff(99);
 		REQUIRE( n == 0 );
 	}
+
+	SECTION( "noteOff kills every copy of a note" ) {
+		nb.noteOn(64, 1);
+		nb.noteOn(64, 1);
+		nb.noteOn(64, 1);
+		n = nb.noteOff(64);
+		REQUIRE( n == 0 );
+	}
+
+	SECTION( "allNotesOff" ) {
+		nb.noteOn(1, 100);
+		nb.noteOn(2, 100);
+		nb.noteOn(3, 100);
+		REQUIRE( nb.allNotesOff() == 3 );
+	}
 	
 }
