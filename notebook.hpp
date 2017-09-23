@@ -93,4 +93,5 @@ Note *NoteBook::noteOff(char _pitch) {
 		delete current;
 		return head;
 	}
+	return 0;
 }
